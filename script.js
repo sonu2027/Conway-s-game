@@ -3,6 +3,9 @@ let cell = document.querySelectorAll(".cell");
 // Initially alive cell is empty
 let alive = [];
 
+// Declaring to make sure that only one intervalID is running at a time
+let intervalID = null;
+
 // This function show all the alive cell as yellow color in grid
 const showAlive = () => {
   for (let i = 0; i < 900; i++) {
@@ -26,14 +29,14 @@ for (let i = 0; i < 900; i++) {
     } else {
       alive.push(i);
     }
+
     showAlive();
   });
 }
 
-let start = document.getElementById("start");
-let stop = document.getElementById("stop");
-let stops = false;
-let startRandomly = document.getElementById("startRandomly");
+let startButton = document.getElementById("start");
+let stopButton = document.getElementById("stop");
+let startRandomlyButton = document.getElementById("startRandomly");
 
 // This function return all the neighbour cell including dead neighbour cell
 function getNeighbors(size, row, col) {
@@ -64,12 +67,7 @@ function getNeighbors(size, row, col) {
 }
 
 const startgame = () => {
-  const interval = setInterval(() => {
-    if (stops) {
-      stops = false;
-      clearInterval(interval);
-    }
-
+  intervalID = setInterval(() => {
     let newAlive = alive;
 
     for (let i = 0; i < 900; i++) {
@@ -89,7 +87,7 @@ const startgame = () => {
         newAlive = newAlive.filter((e) => e != i);
 
       // if alive cell length will be 0 then the interval will clear and stop working at that point
-      if (alive.length == 0) clearInterval(interval);
+      if (alive.length == 0) clearInterval(intervalID);
     }
 
     //
@@ -98,15 +96,21 @@ const startgame = () => {
   }, 500);
 };
 
-start.addEventListener("click", (e) => {
+startButton.addEventListener("click", (e) => {
+  clearInterval(intervalID);
   startgame();
 });
 
-stop.addEventListener("click", () => {
-  stops = true;
+stopButton.addEventListener("click", () => {
+  clearInterval(intervalID);
+  startButton.disabled = false;
+  startButton.style.background = "royalBlue";
 });
 
-startRandomly.addEventListener("click", () => {
+startRandomlyButton.addEventListener("click", () => {
+  clearInterval(intervalID);
+  startButton.disabled = true;
+  startButton.style.background = "gray";
   alive = [];
   const chooseNoOfAliveCell = Math.floor(Math.random() * 901) + 1;
   console.log(chooseNoOfAliveCell);

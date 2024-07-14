@@ -28,8 +28,24 @@ footer {
 }
 
 footer button {
+  background-color: royalblue;
+  color: #fff;
+  border: none;
   padding: 0.5rem 1rem;
-  margin: 0.3rem 0;
+  margin: 0.5rem;
+  border-radius: 1rem;
+  font-size: 1.2rem;
+}
+
+footer button:hover {
+  cursor: pointer;
+}
+
+header {
+  background-color: #3663a8;
+  color: #aacbff;
+  font-size: 2rem;
+  padding: 1rem 0 0.4rem 1rem;
 }
 
 @media screen and (max-width: 600px) {
@@ -40,6 +56,20 @@ footer button {
 }
 
 @media screen and (max-width: 500px) {
+  .cell {
+    height: 0.7rem;
+    width: 0.7rem;
+  }
+}
+
+@media screen and (max-width: 425px) {
+  .cell {
+    height: 0.65rem;
+    width: 0.65rem;
+  }
+}
+
+@media screen and (max-width: 390px) {
   .cell {
     height: 0.6rem;
     width: 0.6rem;
